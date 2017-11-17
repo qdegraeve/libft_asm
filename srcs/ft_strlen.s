@@ -1,19 +1,19 @@
+global _ft_strlen
+
 section .text
-	global _ft_strlen
 
 _ft_strlen:
 	mov		rbx, 0
 
-_cmp
-	mov		cl, [rdi]
-	cmp		cl, 0
-	je		_ret
+comp:
+	cmp		[rdi], byte 0
+	je		ret
 
-_loop:
+loop:
 	inc		rbx
 	inc		rdi
-	jmp		_cmp
+	jmp		comp
 
-_ret:
+ret:
 	mov		rax, rbx
 	ret

@@ -1,4 +1,4 @@
-NAME = libft_asm
+NAME = libfts.a
 
 CC = nasm
 CFlAGS = -f macho64
@@ -6,7 +6,15 @@ CFlAGS = -f macho64
 VPATH = srcs/
 SRCS = ft_bzero.s \
 	   ft_strlen.s \
-	   ft_isalnum.s
+	   ft_isalnum.s \
+	   ft_isalpha.s \
+	   ft_isdigit.s \
+	   ft_isupper.s \
+	   ft_islower.s \
+	   ft_isascii.s \
+	   ft_toupper.s \
+	   ft_tolower.s \
+	   ft_strcat.s
 
 OBJDIR = objs/
 OBJS = $(patsubst %.s, $(OBJDIR)%.o, $(SRCS))

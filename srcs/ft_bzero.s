@@ -2,8 +2,6 @@ section .text ; Use this section for code
 	global _ft_bzero
 
 _ft_bzero:
-	push rbp
-	mov rbp, rsp
 	mov rcx, rdi
 	mov r10, rsi
 	cmp r10, 0
@@ -17,5 +15,4 @@ _fills_loop:
 	jne  _fills_loop
 
 _end_function:
-	pop rbp
 	ret
