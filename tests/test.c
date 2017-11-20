@@ -18,7 +18,7 @@ static void		test_bzero() {
 }
 
 static void		test_strlen() {
-	int  ret = 0, cmp = 0;
+	int  ret = 0, cmp = 0, i;
 	char	*test[4] = {
 		"",
 		"\0",
@@ -27,11 +27,14 @@ static void		test_strlen() {
 	};
 
 	printf("Test function STRLEN --> [ ");
-	for (int i = 0; i < 4; ++i) {
+	for (i = 0; i < 4; ++i) {
 		cmp = strlen(test[i]) - ft_strlen(test[i]);
 		printf("%s. ", cmp ? RED : GRN);
 		ret += cmp ? 1 : 0;
 	}
+	cmp = strlen(test[i - 1]) - ft_strlen(test[i - 1]);
+	printf("%s. ", cmp ? RED : GRN);
+	ret += cmp ? 1 : 0;
 	printf("%s] %s[%s]%s\n", NRM, ret ? RED : GRN, ret ? " " : "X", NRM);
 }
 
@@ -56,6 +59,7 @@ static void		test_isalpha() {
 	for (int i = 0; i < 12; ++i) {
 		cmp = ft_isalpha(test[i]) - isalpha(test[i]);
 		printf("%s. ", cmp ? RED : GRN);
+		ret += cmp ? 1 : 0;
 	}
 	printf("%s] %s[%s]%s\n", NRM, ret ? RED : GRN, ret ? " " : "X", NRM);
 }
@@ -68,6 +72,7 @@ static void		test_isdigit() {
 	for (int i = 0; i < 12; ++i) {
 		cmp = ft_isdigit(test[i]) - isdigit(test[i]);
 		printf("%s. ", cmp ? RED : GRN);
+		ret += cmp ? 1 : 0;
 	}
 	printf("%s] %s[%s]%s\n", NRM, ret ? RED : GRN, ret ? " " : "X", NRM);
 }
@@ -80,6 +85,7 @@ static void		test_isascii() {
 	for (int i = 0; i < 5; ++i) {
 		cmp = ft_isascii(test[i]) - isascii(test[i]);
 		printf("%s. ", cmp ? RED : GRN);
+		ret += cmp ? 1 : 0;
 	}
 	printf("%s] %s[%s]%s\n", NRM, ret ? RED : GRN, ret ? " " : "X", NRM);
 }
@@ -92,6 +98,7 @@ static void		test_tolower() {
 	for (int i = 0; i < 15; ++i) {
 		cmp = ft_tolower(test[i]) - tolower(test[i]);
 		printf("%s%c ", cmp ? RED : GRN, ft_tolower(test[i]));
+		ret += cmp ? 1 : 0;
 	}
 	printf("%s] %s[%s]%s\n", NRM, ret ? RED : GRN, ret ? " " : "X", NRM);
 }
@@ -100,10 +107,82 @@ static void		test_toupper() {
 	int		ret = 0, cmp = 0;
 	char	test[] = "\0AazZ1234-9	, &\0";
 
-	printf("Test function TOLOWER --> [ ");
+	printf("Test function TOUPPER --> [ ");
 	for (int i = 0; i < 15; ++i) {
 		cmp = ft_toupper(test[i]) - toupper(test[i]);
 		printf("%s%c ", cmp ? RED : GRN, ft_toupper(test[i]));
+		ret += cmp ? 1 : 0;
+	}
+	printf("%s] %s[%s]%s\n", NRM, ret ? RED : GRN, ret ? " " : "X", NRM);
+}
+
+static void			test_ft_strcat() {
+	char	str[50] = "";
+	char	*str2 = "je suis beau";
+	
+	//printf("fake: %s\n", ft_strcat("je suis tres beau\0           ", "et tres con"));
+	//printf("real: %p -- %lu -- %lu -- %p -- %p\n", str, strlen(str), ft_strlen(str), "", "");
+	printf("real: %s\n", strcat(str, str2));
+	//printf("fake: %s\n", ft_strcat(str, str2));
+	//printf("real: %s\n", str);
+	//printf("fake: %s\n", ft_strcat(str, str2));
+}
+
+static void		test_puts() {
+	char	*test[4] = {
+		NULL,
+		"suis",
+		"tres",
+		"beau \0 et tres laid\n"
+	};
+	int		ret = 0, cmp = 0;
+
+	printf("Test function PUTS -->\n");
+	for (int i = 0; i < 4; ++i) {
+		printf("\t%sstdio puts --> ", MAG);
+		cmp = puts(test[i]);
+		write(1, BLU, 5);
+		write(1, "\tmy puts -->    ", 16);
+		cmp -= ft_puts(test[i]);
+		ret += cmp ? 1 : 0;
+		cmp = 0;
+	}
+	printf("\t%sFunction return value --> [%s]%s\n", ret ? RED : GRN, ret ? " " : "X", NRM);
+}
+
+static void		test_memset() {
+	char	test[10] = "12345678";
+	char	test2[10] = "12345678";
+	int		ret = 0, cmp = 0;
+
+	printf("Test function MEMSET --> [ ");
+	for (int i = 0; i < 7; i++) {
+		cmp = strcmp(memset((void*)test, 60 + i * 10, 7 - i), ft_memset((void*)test2, 60 + i * 10, 7 - i));
+		printf("%s%s ", cmp ? RED : GRN, test);
+		ret += cmp ? 1 : 0;
+		cmp = 0;
+	}
+	printf("%s] %s[%s]%s\n", NRM, ret ? RED : GRN, ret ? " " : "X", NRM);
+}
+
+static void		test_memcpy() {
+	char	test[10] = "";
+	char	test_bis[10] = "";
+	char	*test2[10] = {
+		"12345678",
+		"je",
+		"suis",
+		"tres",
+		"\0beau"
+	};
+	int		ret = 0, cmp = 0;
+
+	printf("Test function MEMCPY --> [ ");
+	for (int i = 0; i < 5; i++) {
+		cmp = strcmp(ft_memcpy((void*)test, test2[i], strlen(test2[i])), memcpy((void*)test_bis, test2[i], strlen(test2[i])));
+		printf("%s\"%s\" ", cmp ? RED : GRN, test);
+		ret += cmp ? 1 : 0;
+		cmp = 0;
 	}
 	printf("%s] %s[%s]%s\n", NRM, ret ? RED : GRN, ret ? " " : "X", NRM);
 }
@@ -117,17 +196,6 @@ static void		test_toupper() {
 //	printf("%s] %s[%s]%s\n", NRM, ret ? RED : GRN, ret ? " " : "X", NRM);
 //}
 
-static void			test_ft_strcat() {
-	char	*str = "";
-	char	*str2 = "je suis beau";
-	//printf("fake: %s\n", ft_strcat("je suis tres beau\0           ", "et tres con"));
-	//printf("real: %p -- %lu -- %lu -- %p -- %p\n", str, strlen(str), ft_strlen(str), "", "");
-	printf("real: %s\n", strcat(str, str2));
-	//printf("fake: %s\n", ft_strcat(str, str2));
-	//printf("real: %s\n", str);
-	//printf("fake: %s\n", ft_strcat(str, str2));
-}
-
 int		main(void)
 {
 	test_bzero();
@@ -139,5 +207,8 @@ int		main(void)
 	test_tolower();
 	test_toupper();
 	test_ft_strcat();
+	test_puts();
+	test_memset();
+	test_memcpy();
 	return (0);
 }
