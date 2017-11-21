@@ -6,7 +6,6 @@ _ft_strlen:
 	push	rbp
 	mov		rbp, rsp
 	push	rdi
-	mov		rbx, 0
 	sub		al, al
 	mov		rcx, 0
 	not		rcx

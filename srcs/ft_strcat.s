@@ -1,24 +1,28 @@
 extern	_ft_strlen
+extern	_ft_memcpy
 global	_ft_strcat
 
 _ft_strcat:
-	mov		rcx, rdi
-	mov		r10, rdi
+
+	push	rbp
+	mov		rbp, rsp
+	push	rdi
+	push	rsi
+	sub		al, al
+	mov		rcx, 0
+	not		rcx
+	cld
+	repne	scasb
+	dec		rdi
+	push	rdi
+	mov		rdi, [rsp + 8]
 	call	_ft_strlen
-	add		rcx, qword rax
-
-
-comp:
-	cmp		[rsi], byte 0
-	je		ret
-;
-loop:
-	mov		al, [rsi]
-	mov		[rcx], al
-	inc		rcx
-	inc		rsi
-	jmp		comp
-
-ret:
-	mov		rax, r10
+	pop		rdi
+	mov		rsi, [rsp]
+	inc		rax
+	mov		rdx, rax
+	call	_ft_memcpy
+	pop		rsi
+	pop		rdi
+	pop		rbp
 	ret

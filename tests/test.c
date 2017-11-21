@@ -117,15 +117,29 @@ static void		test_toupper() {
 }
 
 static void			test_ft_strcat() {
-	char	str[50] = "";
-	char	*str2 = "je suis beau";
-	
-	//printf("fake: %s\n", ft_strcat("je suis tres beau\0           ", "et tres con"));
-	//printf("real: %p -- %lu -- %lu -- %p -- %p\n", str, strlen(str), ft_strlen(str), "", "");
-	printf("real: %s\n", strcat(str, str2));
-	//printf("fake: %s\n", ft_strcat(str, str2));
-	//printf("real: %s\n", str);
-	//printf("fake: %s\n", ft_strcat(str, str2));
+	char	str[50];
+	char	*test[6] = {
+		"",
+		"\0",
+		"je",
+		" suis tres",
+		" beau",
+		" et intelligent \0 tres beau"
+	};
+	int		cmp = 0, ret = 0;
+
+	printf("Test function STRCAT --> [ ");
+	for (int i = 0; i < 6; ++i) {
+		if (i > 0)
+			printf(" - ");
+		cmp = strlen(str) + strlen(test[i]);
+		strcat(str, test[i]);
+		cmp -= strlen(str);
+		printf("%s%s", cmp ? RED : GRN, str);
+		ret += cmp ? 1 : 0;
+		cmp = 0;
+	}
+	printf(" %s] %s[%s]%s\n", NRM, ret ? RED : GRN, ret ? " " : "X", NRM);
 }
 
 static void		test_puts() {

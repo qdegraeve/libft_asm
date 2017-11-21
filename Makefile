@@ -1,7 +1,7 @@
 NAME = libfts.a
 
 CC = nasm
-CFlAGS = -f macho64 -lSystem
+CFlAGS = -f macho64
 
 VPATH = srcs/
 SRCS = ft_bzero.s \
