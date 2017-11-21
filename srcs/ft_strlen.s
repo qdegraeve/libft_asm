@@ -3,19 +3,20 @@ global _ft_strlen
 section .text
 
 _ft_strlen:
-	mov		r10, rdi
+	push	rbp
+	mov		rbp, rsp
+	push	rdi
 	mov		rbx, 0
-
-comp:
-	cmp		[rdi], byte 0
-	je		ret
-
-loop:
-	inc		rbx
-	inc		rdi
-	jmp		comp
+	sub		al, al
+	mov		rcx, 0
+	not		rcx
+	cld
+	repne	scasb
 
 ret:
-	mov		rdi, r10
-	mov		rax, rbx
+	not		rcx
+	sub		rcx, 1
+	pop		rdi
+	mov		rax, rcx
+	pop		rbp
 	ret

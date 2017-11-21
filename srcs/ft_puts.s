@@ -16,7 +16,9 @@ section	.data
 section .text
 
 _ft_puts:
-	mov		rbx, rdi
+	push	rbp
+	mov		rbp, rsp
+	push	rdi
 	cmp		rdi, 0
 	jne		prints
 	lea		rdi, [rel null_string]
@@ -34,5 +36,6 @@ prints:
 	mov		rax, 10
 
 ret:
-	mov		rdi, rbx
+	pop		rdi
+	pop		rbp
 	ret

@@ -29,7 +29,7 @@ static void		test_strlen() {
 	printf("Test function STRLEN --> [ ");
 	for (i = 0; i < 4; ++i) {
 		cmp = strlen(test[i]) - ft_strlen(test[i]);
-		printf("%s. ", cmp ? RED : GRN);
+		printf("%s%lu ", cmp ? RED : GRN, ft_strlen(test[i]));
 		ret += cmp ? 1 : 0;
 	}
 	cmp = strlen(test[i - 1]) - ft_strlen(test[i - 1]);
@@ -187,6 +187,38 @@ static void		test_memcpy() {
 	printf("%s] %s[%s]%s\n", NRM, ret ? RED : GRN, ret ? " " : "X", NRM);
 }
 
+static void		test_strdup() {
+	char	*test = NULL;
+	char	*test2[10] = {
+		"12345678",
+		"je",
+		"suis",
+		"tres",
+		"\0beau"
+	};
+	int		ret = 0, cmp = 0;
+
+	printf("Test function STRDUP --> [ ");
+	for (int i = 0; i < 5; i++) {
+		cmp = strcmp((test = ft_strdup(test2[i])), test2[i]);
+		printf("%s\"%s\" ", cmp ? RED : GRN, test);
+		ret += cmp ? 1 : 0;
+		cmp = 0;
+		free(test);
+		test = NULL;
+	}
+	printf("%s] %s[%s]%s\n", NRM, ret ? RED : GRN, ret ? " " : "X", NRM);
+}
+
+static void		test_cat() {
+	int		fd;
+
+	fd = open("Makefile", O_RDONLY);
+	printf("FD == %d\n", fd);
+	ft_cat(fd);
+	close(fd);
+}
+
 //static void		test_isprint() {
 //	int  ret = 0, cmp = 0;
 //	printf("Test function ISALNUM --> [ ");
@@ -210,5 +242,7 @@ int		main(void)
 	test_puts();
 	test_memset();
 	test_memcpy();
+	test_strdup();
+	test_cat();
 	return (0);
 }

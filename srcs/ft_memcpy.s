@@ -9,6 +9,7 @@ _ft_memcpy:
 	push	rdi
 	push	rsi
 	mov		rcx, rdx
+	cld
 	rep		movsb
 	pop		rsi
 	pop		rdi
