@@ -1,7 +1,7 @@
 NAME = libfts.a
 
 CC = nasm
-CFlAGS = -f macho64
+CFlAGS = -f macho64 -lSystem
 
 VPATH = srcs/
 SRCS = ft_bzero.s \
@@ -10,6 +10,7 @@ SRCS = ft_bzero.s \
 	   ft_isalpha.s \
 	   ft_isdigit.s \
 	   ft_isupper.s \
+	   ft_isprint.s \
 	   ft_islower.s \
 	   ft_isascii.s \
 	   ft_toupper.s \
@@ -17,7 +18,9 @@ SRCS = ft_bzero.s \
 	   ft_strcat.s \
 	   ft_puts.s \
 	   ft_memset.s \
-	   ft_memcpy.s
+	   ft_memcpy.s \
+	   ft_strdup.s \
+	   ft_cat.s
 
 OBJDIR = objs/
 OBJS = $(patsubst %.s, $(OBJDIR)%.o, $(SRCS))
@@ -40,16 +43,16 @@ $(NAME): $(OBJS)
 $(OBJDIR)%.o: %.s $(OBJDIR)
 	@echo -e "\033[1K"
 	@echo " + sh : Compiling $(OBJDIR) < $^ with nasm\r"
-	@$(CC) $(CFlAGS) -Wl -o $@ $<
+	@$(CC) $(CFlAGS) -o $@ $<
 
 $(OBJDIR):
 	@mkdir $(OBJDIR)
 
 clean:
-	@rm $(NAME)
+	@rm $(OBJS)
 
 fclean: clean
-	@rm $(OBJS)
+	@rm $(NAME)
 
 re: fclean all
 
