@@ -38,6 +38,20 @@ static void		test_strlen() {
 	printf("%s] %s[%s]%s\n", NRM, ret ? RED : GRN, ret ? " " : "X", NRM);
 }
 
+static void		test_isprint() {
+	int  ret = 0, cmp = 0;
+	char	test[] = "\0AazZ1234-9	, &\0";
+
+	printf("Test function ISPRINT --> [ ");
+	for (int i = 0; i < 4; ++i) {
+		cmp = ft_isprint(test[i]) - isprint(test[i]);
+		printf("%s%c ", cmp ? RED : GRN, test[i]);
+		ret += cmp ? 1 : 0;
+		cmp = 0;
+	}
+	printf("%s] %s[%s]%s\n", NRM, ret ? RED : GRN, ret ? " " : "X", NRM);
+}
+
 static void		test_isalnum() {
 	int  ret = 0, cmp = 0;
 	char	test[] = "\0AazZ1234-9	, &\0";
@@ -45,8 +59,9 @@ static void		test_isalnum() {
 	printf("Test function ISALNUM --> [ ");
 	for (int i = 0; i < 12; ++i) {
 		cmp = ft_isalnum(test[i]) - isalnum(test[i]);
-		printf("%s. ", cmp ? RED : GRN);
+		printf("%s%c ", cmp ? RED : GRN, test[i]);
 		ret += cmp ? 1 : 0;
+		cmp = 0;
 	}
 	printf("%s] %s[%s]%s\n", NRM, ret ? RED : GRN, ret ? " " : "X", NRM);
 }
@@ -58,8 +73,9 @@ static void		test_isalpha() {
 	printf("Test function ISALPHA --> [ ");
 	for (int i = 0; i < 12; ++i) {
 		cmp = ft_isalpha(test[i]) - isalpha(test[i]);
-		printf("%s. ", cmp ? RED : GRN);
+		printf("%s%c ", cmp ? RED : GRN, test[i]);
 		ret += cmp ? 1 : 0;
+		cmp = 0;
 	}
 	printf("%s] %s[%s]%s\n", NRM, ret ? RED : GRN, ret ? " " : "X", NRM);
 }
@@ -71,8 +87,9 @@ static void		test_isdigit() {
 	printf("Test function ISDIGIT --> [ ");
 	for (int i = 0; i < 12; ++i) {
 		cmp = ft_isdigit(test[i]) - isdigit(test[i]);
-		printf("%s. ", cmp ? RED : GRN);
+		printf("%s%c ", cmp ? RED : GRN, test[i]);
 		ret += cmp ? 1 : 0;
+		cmp = 0;
 	}
 	printf("%s] %s[%s]%s\n", NRM, ret ? RED : GRN, ret ? " " : "X", NRM);
 }
@@ -84,8 +101,9 @@ static void		test_isascii() {
 	printf("Test function ISASCII --> [ ");
 	for (int i = 0; i < 5; ++i) {
 		cmp = ft_isascii(test[i]) - isascii(test[i]);
-		printf("%s. ", cmp ? RED : GRN);
+		printf("%s%c ", cmp ? RED : GRN, test[i]);
 		ret += cmp ? 1 : 0;
+		cmp = 0;
 	}
 	printf("%s] %s[%s]%s\n", NRM, ret ? RED : GRN, ret ? " " : "X", NRM);
 }
@@ -233,15 +251,6 @@ static void		test_cat() {
 	close(fd);
 }
 
-//static void		test_isprint() {
-//	int  ret = 0, cmp = 0;
-//	printf("Test function ISALNUM --> [ ");
-//	for (int i = 0; i < 4; ++i) {
-//		printf("%s. ", cmp ? RED : GRN);
-//	}
-//	printf("%s] %s[%s]%s\n", NRM, ret ? RED : GRN, ret ? " " : "X", NRM);
-//}
-
 int		main(void)
 {
 	test_bzero();
@@ -250,6 +259,7 @@ int		main(void)
 	test_isalpha();
 	test_isdigit();
 	test_isascii();
+	test_isprint();
 	test_tolower();
 	test_toupper();
 	test_ft_strcat();
@@ -258,5 +268,9 @@ int		main(void)
 	test_memcpy();
 	test_strdup();
 	test_cat();
+	ft_putstr("je suis tres beau\n");
+	ft_fputs("je suis une autre erreur\n", 2);
+	ft_fputstr("je suis une erreur\n", 2);
+	ft_fputs("je n'imprime rien", -1);
 	return (0);
 }

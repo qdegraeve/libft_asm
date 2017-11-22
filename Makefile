@@ -17,6 +17,9 @@ SRCS = ft_bzero.s \
 	   ft_tolower.s \
 	   ft_strcat.s \
 	   ft_puts.s \
+	   ft_fputs.s \
+	   ft_putstr.s \
+	   ft_fputstr.s \
 	   ft_memset.s \
 	   ft_memcpy.s \
 	   ft_strdup.s \
