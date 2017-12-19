@@ -37,8 +37,8 @@ comp:
 	jl		ret
 	mov		r10, rax
 	print_string	1, rsi, r10
-	cmp		r10, 255
-	je		read
+	cmp		r10, 0
+	jne		read
 
 ret:
 	pop		rdi

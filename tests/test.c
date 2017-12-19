@@ -249,6 +249,8 @@ static void		test_cat() {
 	printf("FD == %d\n", fd);
 	ft_cat(fd);
 	close(fd);
+	printf("\ntest cat on STDIN -- press ctrl-D to escape\n");
+	ft_cat(0);
 }
 
 int		main(void)
